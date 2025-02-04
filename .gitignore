@@ -1,0 +1,52 @@
+# Игнорировать папку .vscode
+.vscode/
+
+# Игнорировать папку build
+build/
+
+# Игнорировать папку objects
+objects/
+
+# Игнорировать файлы базы данных программы (PDB)
+*.pdb
+*.idb
+*.ilk
+
+# Игнорировать объектные файлы
+*.o
+*.obj
+
+# Игнорировать исполняемые файлы
+*.exe
+*.out
+
+# Игнорировать временные файлы и резервные копии
+*~
+*.bak
+*.swp
+
+# Игнорировать файлы логов
+*.log
+
+# Игнорировать файлы сгенерированных ресурсов
+*.res
+
+# Игнорировать папку .vs (Visual Studio)
+.vs/
+
+# Игнорировать файлы и папки, создаваемые Visual Studio
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Игнорировать папку cmake-build-debug (если используется CMake)
+cmake-build-debug/
+
+# Игнорировать файлы и папки, создаваемые CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+
+echo ".vscode/" &gt;&gt; .gitignore
+echo "*.pdb" &gt;&gt; .gitignore
