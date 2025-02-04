@@ -55,30 +55,25 @@ namespace game {
     Node::~Node() {
     }
 
-    void Node::set_number(int number) {
+    void Node::set_number(uint16_t  number) {
         number_ = number;
     }
 
-    void Node::set_strength(int strength) {
+    void Node::set_strength(uint16_t  strength) {
         strength_ = strength;
     }
 
-    void Node::set_transitions(std::vector<int> transitions) {
-        transitions_ = transitions;
+    void Node::set_transition(uint16_t  destination) {
+        transitions_.push_back(destination);
     }
 
-    int Node::get_number() {
+    uint16_t  Node::get_number() {
         return number_;
     }
 
-    int Node::get_strength() {
+    uint16_t  Node::get_strength() {
         return strength_;
     }
-
-    std::vector<int> Node::get_transitions() {
-        return transitions_;
-    }
-
 
     ReadFile::ReadFile(Game& Game) : game_(Game) {
         std::fstream inputFile(file_name_);
@@ -86,10 +81,13 @@ namespace game {
         uint16_t N;
         inputFile >> N;
         Game.set_count(N);
+        std::cout << N << std::endl;
 
         uint16_t S;
         inputFile >> S;
         Game.set_strength(S);
+        std::cout << S << std::endl;
+        std::cout << Game.get_strength() << std::endl;
 
         uint16_t T;
         for (uint16_t i = 0; i < N; i++) {
@@ -98,9 +96,16 @@ namespace game {
             new_node.set_number(i);
             new_node.set_strength(T);
             Game.add_node(new_node);
+            std::cout << T << std::endl;
+            std::cout << Game.nodes_[i].get_number() << std::endl;
         }
 
-        uint16_t Tr;
+        uint16_t X, Y;
+        while (inputFile >> X >> Y) {
+            std::cout << X << "-" << Y << std::endl;
+            Game.nodes_[X-1].set_transition(Y);
+            Game.nodes_[Y-1].set_transition(X);
+        }
 
     }
 

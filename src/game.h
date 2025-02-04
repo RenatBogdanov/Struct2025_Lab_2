@@ -27,10 +27,10 @@ namespace game {
         uint16_t strength_;
         uint16_t current_strength_;
         uint16_t count_;
-        std::vector<std::vector<int>> traces_;
-        std::vector<Node> nodes_;
+        std::vector<std::vector<uint16_t >> traces_;
         
     public:
+        std::vector<Node> nodes_;
         Game();
         ~Game();
 
@@ -67,20 +67,19 @@ namespace game {
     class Node
     {
     private:
-        int number_;
-        std::vector<int> transitions_;
-        int strength_;
+        uint16_t  number_;
+        uint16_t  strength_;
     public:
+        std::vector<uint16_t> transitions_;
         Node();
         ~Node();
 
-        void set_number(int number);
-        void set_strength(int strength);
-        void set_transitions(std::vector<int> transitions);
+        void set_number(uint16_t  number);
+        void set_strength(uint16_t  strength);
+        void set_transition(uint16_t  destination);
 
-        int get_number();
-        int get_strength();
-        std::vector<int> get_transitions();
+        uint16_t  get_number();
+        uint16_t  get_strength();
     };
     
     
