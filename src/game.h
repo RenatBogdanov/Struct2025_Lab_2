@@ -3,30 +3,54 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <vector>
-#include <cstdint>
+
 
 namespace game {
 
+    class Game;
+    class GameRender;
+    class ReadFile;
+    class Node;
+    class Hero;
     
+
     struct Vector2
     {
         uint16_t x;
         uint16_t y;
     };
     
-
     
     class Game
     {
     private:
-        int nodes_;
-        int traces_;
+        uint16_t strength_;
+        uint16_t current_strength_;
+        uint16_t count_;
+        std::vector<std::vector<int>> traces_;
+        std::vector<Node> nodes_;
         
     public:
         Game();
         ~Game();
+
+        void add_node(Node node);
+        void set_count(uint16_t count);
+        void set_strength(uint16_t strength);
+
+        uint16_t get_count();
+        uint16_t get_strength();
     };
+
+    class ReadFile
+    {
+        private:
+            std::string file_name_ = "input.txt";
+            Game& game_;
+        public:
+            ReadFile(Game& game);
+            ~ReadFile();
+    };  
     
 
     
@@ -39,8 +63,7 @@ namespace game {
         ~RenderGame();
     };
     
-    
-    
+       
     class Node
     {
     private:
@@ -60,19 +83,6 @@ namespace game {
         std::vector<int> get_transitions();
     };
     
-
-    
-    class Hero
-    {
-    private:
-        int strength_;
-        int current_strength_;
-
-    public:
-        Hero();
-        ~Hero();
-
-    };
     
 }
 
