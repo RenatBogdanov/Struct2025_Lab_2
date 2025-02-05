@@ -3,6 +3,7 @@
 #include <sstream>
 #include <vector>
 #include <cstdint>
+#include <set>
 
 #include "game.h"
 
@@ -48,12 +49,21 @@ namespace game {
         std::ofstream dotFile("graph.dot", std::ios::out);
 
         dotFile << "digraph G {\n";
-        // dotFile << "edge [dir=none];\n";
-
+        dotFile << "edge [dir=none];\n";
+        std::set<std::pair<uint16_t, uint16_t>> addedEdges;
 
         for (Node node : Game.nodes_) {
             for (uint16_t transition : node.transitions_) {
-                dotFile << "    " << node.get_number() + 1 << " -> " << transition << ";\n";
+                std::pair<uint16_t, uint16_t> edge;
+                if (node.get_number()+1 < transition) {
+                    edge = {node.get_number()+1, transition};}
+                else {
+                    edge = {transition, node.get_number()+1}; }
+                if (addedEdges.find(edge) == addedEdges.end()) {
+                    dotFile << "    " << node.get_number() + 1 << " -> " << transition << ";\n";
+                    addedEdges.insert(edge);
+                }
+                std::cout << edge.first << " " << edge.second << std::endl;
             }
         }
 
