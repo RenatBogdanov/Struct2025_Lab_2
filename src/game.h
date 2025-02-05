@@ -59,7 +59,7 @@ namespace game {
     private:
         
     public:
-        RenderGame();
+        RenderGame(Game& Game);
         ~RenderGame();
     };
     

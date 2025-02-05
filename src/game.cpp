@@ -43,7 +43,23 @@ namespace game {
         return strength_;
     }
 
-    RenderGame::RenderGame() {
+    RenderGame::RenderGame(Game& Game) {
+        std::ofstream dotFile("graph.dot", std::ios::out);
+
+        dotFile << "digraph G {\n";
+        dotFile << "edge [dir=none];\n";
+
+
+        dotFile << "    1 -> 2;\n";
+        dotFile << "    1 -> 3;\n";
+        dotFile << "    2 -> 4;\n";
+        dotFile << "    3 -> 4;\n";
+        dotFile << "    4 -> 5;\n";
+
+        dotFile << "}\n";
+        dotFile.close();
+
+        std::cout << "File graph.dot was created." << std::endl;
     }
 
     RenderGame::~RenderGame() {
