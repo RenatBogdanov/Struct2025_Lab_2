@@ -11,7 +11,8 @@ namespace game {
 
     
     Game::Game() {
-
+        ReadFile read(*this);
+        RenderGame render(*this);
     }
 
     Game::~Game() {
@@ -61,6 +62,16 @@ namespace game {
         dotFile.close();
 
         std::cout << "File graph.dot was created." << std::endl;
+
+        system("dot -Tpng -O graph.dot");
+
+        std::cout << "Graph was rendered." << std::endl;
+
+        const char* imagePath = "graph.dot.png";
+        std::string command = "start \"\" \"" + std::string(imagePath) + "\"";
+        int result = system(command.c_str());
+
+        std::cout << "Image was opened" << std::endl;
     }
 
     RenderGame::~RenderGame() {
@@ -121,7 +132,6 @@ namespace game {
         while (inputFile >> X >> Y) {
             std::cout << X << "-" << Y << std::endl;
             Game.nodes_[X-1].set_transition(Y);
-            Game.nodes_[Y-1].set_transition(X);
         }
 
     }
