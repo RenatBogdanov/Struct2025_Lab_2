@@ -132,6 +132,7 @@ namespace game {
         while (inputFile >> X >> Y) {
             std::cout << X << "-" << Y << std::endl;
             Game.nodes_[X-1].set_transition(Y);
+            Game.nodes_[Y-1].set_transition(X);
         }
 
     }
