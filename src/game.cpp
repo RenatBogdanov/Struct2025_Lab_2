@@ -47,14 +47,15 @@ namespace game {
         std::ofstream dotFile("graph.dot", std::ios::out);
 
         dotFile << "digraph G {\n";
-        dotFile << "edge [dir=none];\n";
+        // dotFile << "edge [dir=none];\n";
 
 
-        dotFile << "    1 -> 2;\n";
-        dotFile << "    1 -> 3;\n";
-        dotFile << "    2 -> 4;\n";
-        dotFile << "    3 -> 4;\n";
-        dotFile << "    4 -> 5;\n";
+        for (Node node : Game.nodes_) {
+            for (uint16_t transition : node.transitions_) {
+                dotFile << "    " << node.get_number() + 1 << " -> " << transition << ";\n";
+            }
+        }
+
 
         dotFile << "}\n";
         dotFile.close();
