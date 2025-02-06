@@ -28,8 +28,10 @@ namespace game {
         uint16_t current_strength_;
         uint16_t count_;
         std::vector<std::vector<uint16_t >> traces_;
+        std::string file_name_ = "input.txt";
         
     public:
+        std::set<std::pair<uint16_t, uint16_t>> addedEdges;
         std::vector<Node> nodes_;
         Game();
         ~Game();
@@ -40,28 +42,11 @@ namespace game {
 
         uint16_t get_count();
         uint16_t get_strength();
-    };
 
-    class ReadFile
-    {
-        private:
-            std::string file_name_ = "input.txt";
-            Game& game_;
-        public:
-            ReadFile(Game& game);
-            ~ReadFile();
-    };  
-    
+        void ReadFile(Game& game);
+        void RenderGame(Game& game);
+    };    
 
-    
-    class RenderGame
-    {
-    private:
-        
-    public:
-        RenderGame(Game& Game);
-        ~RenderGame();
-    };
     
        
     class Node

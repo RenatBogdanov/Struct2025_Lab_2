@@ -12,8 +12,8 @@ namespace game {
 
     
     Game::Game() {
-        ReadFile read(*this);
-        RenderGame render(*this);
+        ReadFile(*this);
+        RenderGame(*this);
     }
 
     Game::~Game() {
@@ -45,7 +45,7 @@ namespace game {
         return strength_;
     }
 
-    RenderGame::RenderGame(Game& Game) {
+    void Game::RenderGame(Game& Game) {
         std::ofstream dotFile("graph.dot", std::ios::out);
 
         dotFile << "digraph G {\n";
@@ -84,14 +84,9 @@ namespace game {
         std::cout << "Image was opened" << std::endl;
     }
 
-    RenderGame::~RenderGame() {
-    }
 
-    Node::Node() {
-    }
-
-    Node::~Node() {
-    }
+    Node::Node() {}
+    Node::~Node() {}
 
     void Node::set_number(uint16_t  number) {
         number_ = number;
@@ -113,7 +108,7 @@ namespace game {
         return strength_;
     }
 
-    ReadFile::ReadFile(Game& Game) : game_(Game) {
+    void Game::ReadFile(Game& Game) {
         std::fstream inputFile(file_name_);
 
         uint16_t N;
@@ -145,9 +140,19 @@ namespace game {
             Game.nodes_[Y-1].set_transition(X);
         }
 
-    }
+        
+        // for (Node node : Game.nodes_) {
+        //     for (uint16_t transition : node.transitions_) {
+        //         std::pair<uint16_t, uint16_t> edge;
+        //         if (node.get_number()+1 < transition) {
+        //             edge = {node.get_number()+1, transition};}
+        //         else {
+        //             edge = {transition, node.get_number()+1}; }
+        //         if (Game.addedEdges.find(edge) == Game.addedEdges.end()) {
+        //             Game.addedEdges.insert(edge);
+        //         }
+        //     }
+        // }
 
-    ReadFile::~ReadFile() {
     }
-
 }
