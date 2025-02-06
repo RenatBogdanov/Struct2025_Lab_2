@@ -6,20 +6,12 @@
 
 
 namespace game {
-
+    // Перечисление классов
     class Game;
     class GameRender;
     class ReadFile;
     class Node;
     class Hero;
-    
-
-    struct Vector2
-    {
-        uint16_t x;
-        uint16_t y;
-    };
-    
     
     class Game
     {
@@ -31,7 +23,6 @@ namespace game {
         std::string file_name_ = "input.txt";
         
     public:
-        std::set<std::pair<uint16_t, uint16_t>> addedEdges;
         std::vector<Node> nodes_;
         Game();
         ~Game();

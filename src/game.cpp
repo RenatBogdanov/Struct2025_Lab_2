@@ -122,21 +122,6 @@ namespace game {
             nodes_[X-1].set_transition(Y);
             nodes_[Y-1].set_transition(X);
         }
-
-        
-        // for (Node node : Game.nodes_) {
-        //     for (uint16_t transition : node.transitions_) {
-        //         std::pair<uint16_t, uint16_t> edge;
-        //         if (node.get_number()+1 < transition) {
-        //             edge = {node.get_number()+1, transition};}
-        //         else {
-        //             edge = {transition, node.get_number()+1}; }
-        //         if (Game.addedEdges.find(edge) == Game.addedEdges.end()) {
-        //             Game.addedEdges.insert(edge);
-        //         }
-        //     }
-        // }
-
     }
 
     // Пустые конструкторы и деструкторы для узла
