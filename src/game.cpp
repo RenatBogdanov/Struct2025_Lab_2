@@ -1,9 +1,9 @@
-#include <iostream>
+#include <cstdint>
 #include <fstream>
+#include <iostream>
+#include <set>
 #include <sstream>
 #include <vector>
-#include <cstdint>
-#include <set>
 
 #include "game.h"
 
@@ -57,6 +57,11 @@ namespace game {
         dotFile << "digraph G {\n";
         dotFile << "edge [dir=none];\n";
         std::set<std::pair<uint16_t, uint16_t>> addedEdges;
+        for (Node node : nodes_) {
+            // [xlabel="a"]
+            dotFile << node.get_number()+1 << " [xlabel=\""<< node.get_strength() << "\"]\n";
+        }
+        dotFile << "\n";
 
         for (Node node : nodes_) {
             for (uint16_t transition : node.transitions_) {
@@ -66,7 +71,7 @@ namespace game {
                 else {
                     edge = {transition, node.get_number()+1}; }
                 if (addedEdges.find(edge) == addedEdges.end()) {
-                    dotFile << "    " << node.get_number() + 1 << " -> " << transition << ";\n";
+                    dotFile <<  node.get_number() + 1 << " -> " << transition << ";\n";
                     addedEdges.insert(edge);
                 }
                 std::cout << edge.first << " " << edge.second << std::endl;
