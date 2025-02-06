@@ -71,7 +71,6 @@ namespace game {
                     dotFile <<  node.get_number() + 1 << " -> " << transition << ";\n";
                     addedEdges.insert(edge);
                 }
-                std::cout << edge.first << " " << edge.second << std::endl;
             }
         }
 
@@ -97,14 +96,11 @@ namespace game {
         uint16_t N;
         inputFile >> N;
         set_count(N);
-        std::cout << N << std::endl;
 
         // Запись силы персонажа
         uint16_t S;
         inputFile >> S;
         set_strength(S);
-        std::cout << S << std::endl;
-        std::cout << get_strength() << std::endl;
 
         // Создание узлов
         uint16_t T;
@@ -114,14 +110,11 @@ namespace game {
             new_node.set_number(i);
             new_node.set_strength(T);
             add_node(new_node);
-            std::cout << T << std::endl;
-            std::cout << nodes_[i].get_number() << std::endl;
         }
 
         // Запись переходов узлов
         uint16_t X, Y;
         while (inputFile >> X >> Y) {
-            std::cout << X << "-" << Y << std::endl;
             nodes_[X-1].set_transition(Y);
             nodes_[Y-1].set_transition(X);
         }

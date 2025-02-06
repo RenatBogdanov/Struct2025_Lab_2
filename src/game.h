@@ -37,6 +37,7 @@ namespace game {
         void ReadFile();
         void RenderGame();
         void FindPath();
+        void FindPathUtil(uint16_t node_index, std::vector<bool>& visited, std::vector<uint16_t>& path);
     };    
 
     

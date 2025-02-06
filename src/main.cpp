@@ -10,7 +10,5 @@
 int main() {
     game::Game game;
 
-    std::cout << "Shutdown" << std::endl;
-
     return 0;
 }
