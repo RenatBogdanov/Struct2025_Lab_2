@@ -12,8 +12,8 @@ namespace game {
 
     
     Game::Game() {
-        ReadFile(*this);
-        RenderGame(*this);
+        ReadFile();
+        RenderGame();
     }
 
     Game::~Game() {
@@ -45,14 +45,14 @@ namespace game {
         return strength_;
     }
 
-    void Game::RenderGame(Game& Game) {
+    void Game::RenderGame() {
         std::ofstream dotFile("graph.dot", std::ios::out);
 
         dotFile << "digraph G {\n";
         dotFile << "edge [dir=none];\n";
         std::set<std::pair<uint16_t, uint16_t>> addedEdges;
 
-        for (Node node : Game.nodes_) {
+        for (Node node : nodes_) {
             for (uint16_t transition : node.transitions_) {
                 std::pair<uint16_t, uint16_t> edge;
                 if (node.get_number()+1 < transition) {
@@ -108,19 +108,19 @@ namespace game {
         return strength_;
     }
 
-    void Game::ReadFile(Game& Game) {
+    void Game::ReadFile() {
         std::fstream inputFile(file_name_);
 
         uint16_t N;
         inputFile >> N;
-        Game.set_count(N);
+        set_count(N);
         std::cout << N << std::endl;
 
         uint16_t S;
         inputFile >> S;
-        Game.set_strength(S);
+        set_strength(S);
         std::cout << S << std::endl;
-        std::cout << Game.get_strength() << std::endl;
+        std::cout << get_strength() << std::endl;
 
         uint16_t T;
         for (uint16_t i = 0; i < N; i++) {
@@ -128,16 +128,16 @@ namespace game {
             Node new_node;
             new_node.set_number(i);
             new_node.set_strength(T);
-            Game.add_node(new_node);
+            add_node(new_node);
             std::cout << T << std::endl;
-            std::cout << Game.nodes_[i].get_number() << std::endl;
+            std::cout << nodes_[i].get_number() << std::endl;
         }
 
         uint16_t X, Y;
         while (inputFile >> X >> Y) {
             std::cout << X << "-" << Y << std::endl;
-            Game.nodes_[X-1].set_transition(Y);
-            Game.nodes_[Y-1].set_transition(X);
+            nodes_[X-1].set_transition(Y);
+            nodes_[Y-1].set_transition(X);
         }
 
         

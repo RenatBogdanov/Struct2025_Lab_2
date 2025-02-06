@@ -43,8 +43,8 @@ namespace game {
         uint16_t get_count();
         uint16_t get_strength();
 
-        void ReadFile(Game& game);
-        void RenderGame(Game& game);
+        void ReadFile();
+        void RenderGame();
     };    
 
     
