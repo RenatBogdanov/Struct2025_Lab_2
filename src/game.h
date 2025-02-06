@@ -36,6 +36,7 @@ namespace game {
 
         void ReadFile();
         void RenderGame();
+        void FindPath();
     };    
 
     

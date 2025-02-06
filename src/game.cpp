@@ -12,46 +12,43 @@ namespace game {
 
     
     Game::Game() {
-        ReadFile();
-        RenderGame();
+        ReadFile(); // Чтение файла и запись содержимого в поля
+        RenderGame(); // Создание изображения графа
+        FindPath(); // Поиск путей и вывод в консоль
     }
 
     Game::~Game() {
     }
 
     // Добавление узла
-    void Game::add_node(Node node)
-    {
+    void Game::add_node(Node node) {
         nodes_.push_back(node);
     }
 
     // Установка количества узлов
-    void Game::set_count(uint16_t count)
-    {
+    void Game::set_count(uint16_t count) {
         count_ = count;
     }
 
     // Установка силы персонажа
-    void Game::set_strength(uint16_t strength)
-    {
+    void Game::set_strength(uint16_t strength) {
         strength_ = strength;
     }
 
     // Получение количества узлов
-    uint16_t Game::get_count()
-    {
+    uint16_t Game::get_count() {
         return count_;
 
     }
 
     // Получение силы персонажа
-    uint16_t Game::get_strength()
-    {
+    uint16_t Game::get_strength() {
         return strength_;
     }
 
     // Создание и открытие изображения графа
     void Game::RenderGame() {
+        // Генерация файла graph.dot для последующего преобразования в .png
         std::ofstream dotFile("graph.dot", std::ios::out);
 
         dotFile << "digraph G {\n";
@@ -82,34 +79,34 @@ namespace game {
         dotFile << "}\n";
         dotFile.close();
 
-        std::cout << "File graph.dot was created." << std::endl;
-
+        // Вызов программы dot для создания изображения графа
         system("dot -Tpng -O graph.dot");
 
-        std::cout << "Graph was rendered." << std::endl;
-
+        // Открытие изображения для просмотра
         const char* imagePath = "graph.dot.png";
         std::string command = "start \"\" \"" + std::string(imagePath) + "\"";
         int result = system(command.c_str());
-
-        std::cout << "Image was opened" << std::endl;
     }
 
     // Чтение файла input.txt
     void Game::ReadFile() {
+        // Открытие файла
         std::fstream inputFile(file_name_);
 
+        // Запись количества залов (узлов)
         uint16_t N;
         inputFile >> N;
         set_count(N);
         std::cout << N << std::endl;
 
+        // Запись силы персонажа
         uint16_t S;
         inputFile >> S;
         set_strength(S);
         std::cout << S << std::endl;
         std::cout << get_strength() << std::endl;
 
+        // Создание узлов
         uint16_t T;
         for (uint16_t i = 0; i < N; i++) {
             inputFile >> T;
@@ -121,12 +118,18 @@ namespace game {
             std::cout << nodes_[i].get_number() << std::endl;
         }
 
+        // Запись переходов узлов
         uint16_t X, Y;
         while (inputFile >> X >> Y) {
             std::cout << X << "-" << Y << std::endl;
             nodes_[X-1].set_transition(Y);
             nodes_[Y-1].set_transition(X);
         }
+    }
+
+    // Поиск возможных путей
+    void Game::FindPath() {
+
     }
 
     // Пустые конструкторы и деструкторы для узла
