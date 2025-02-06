@@ -19,32 +19,38 @@ namespace game {
     Game::~Game() {
     }
 
+    // Добавление узла
     void Game::add_node(Node node)
     {
         nodes_.push_back(node);
     }
 
+    // Установка количества узлов
     void Game::set_count(uint16_t count)
     {
         count_ = count;
     }
 
+    // Установка силы персонажа
     void Game::set_strength(uint16_t strength)
     {
         strength_ = strength;
     }
 
+    // Получение количества узлов
     uint16_t Game::get_count()
     {
         return count_;
 
     }
 
+    // Получение силы персонажа
     uint16_t Game::get_strength()
     {
         return strength_;
     }
 
+    // Создание и открытие изображения графа
     void Game::RenderGame() {
         std::ofstream dotFile("graph.dot", std::ios::out);
 
@@ -84,30 +90,7 @@ namespace game {
         std::cout << "Image was opened" << std::endl;
     }
 
-
-    Node::Node() {}
-    Node::~Node() {}
-
-    void Node::set_number(uint16_t  number) {
-        number_ = number;
-    }
-
-    void Node::set_strength(uint16_t  strength) {
-        strength_ = strength;
-    }
-
-    void Node::set_transition(uint16_t  destination) {
-        transitions_.push_back(destination);
-    }
-
-    uint16_t  Node::get_number() {
-        return number_;
-    }
-
-    uint16_t  Node::get_strength() {
-        return strength_;
-    }
-
+    // Чтение файла input.txt
     void Game::ReadFile() {
         std::fstream inputFile(file_name_);
 
@@ -155,4 +138,34 @@ namespace game {
         // }
 
     }
+
+    // Пустые конструкторы и деструкторы для узла
+    Node::Node() {}
+    Node::~Node() {}
+
+    // Установка номера узла
+    void Node::set_number(uint16_t  number) {
+        number_ = number;
+    }
+
+    // Установка силы узла
+    void Node::set_strength(uint16_t  strength) {
+        strength_ = strength;
+    }
+
+    // Добавление перехода
+    void Node::set_transition(uint16_t  destination) {
+        transitions_.push_back(destination);
+    }
+
+    // Получение номера узла
+    uint16_t  Node::get_number() {
+        return number_;
+    }
+
+    // Получение силы узла
+    uint16_t  Node::get_strength() {
+        return strength_;
+    }
+
 }
