@@ -8,16 +8,12 @@
 namespace game {
     // Перечисление классов
     class Game;
-    class GameRender;
-    class ReadFile;
     class Node;
-    class Hero;
     
     class Game
     {
     private:
         uint16_t strength_;
-        uint16_t current_strength_;
         uint16_t count_;
         std::vector<std::vector<uint16_t >> traces_;
         std::string file_name_ = "input.txt";
@@ -37,7 +33,9 @@ namespace game {
         void ReadFile();
         void RenderGame();
         void FindPath();
-        void FindPathUtil(uint16_t node_index, std::vector<bool>& visited, std::vector<uint16_t>& path);
+        void PrintPath(std::vector<int>& path);
+        bool dfs(uint16_t node, uint16_t heroPower, std::vector<bool>& visitedNodes, std::vector<int>& currentPath, bool& pathsFound);
+        void printPath(const std::vector<int>& path);
     };    
 
     

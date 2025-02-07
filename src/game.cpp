@@ -122,7 +122,70 @@ namespace game {
 
     // Поиск возможных путей
     void Game::FindPath() {
+        bool startNodeFound = false;
+        for (size_t i = 0; i < nodes_.size(); ++i) {
+            if (nodes_[i].get_strength() <= strength_) {
+                startNodeFound = true;
+                break;
+            }
+        }
 
+        if (!startNodeFound) {
+            std::cout << "There are no suitable paths." << std::endl;
+            return;
+        }
+
+        bool pathsFound = false;
+        std::vector<bool> visitedNodes(count_, false);
+        std::vector<int> currentPath;
+        for (size_t i = 0; i < nodes_.size(); ++i) {
+            if (nodes_[i].get_strength() <= strength_) {
+                if (dfs(i, strength_, visitedNodes, currentPath, pathsFound)) {
+                    pathsFound = true;
+                }
+                std::fill(visitedNodes.begin(), visitedNodes.end(), false);
+                currentPath.clear();
+            }
+        }
+
+        if (!pathsFound) {
+            std::cout << "There are no suitable paths." << std::endl;
+        }
+    }
+
+    // Поиск путей с помощью DFS
+    bool Game::dfs(uint16_t node, uint16_t heroPower, std::vector<bool>& visitedNodes, std::vector<int>& currentPath, bool& pathsFound) {
+        visitedNodes[node] = true;
+        currentPath.push_back(node + 1);
+
+        if (currentPath.size() == count_) {
+            PrintPath(currentPath);
+            return true;
+        } else {
+            for (uint16_t transition : nodes_[node].transitions_) {
+                if (!visitedNodes[transition - 1] && nodes_[transition - 1].get_strength() <= heroPower + nodes_[node].get_strength()) {
+                    if (dfs(transition - 1, heroPower + nodes_[node].get_strength(), visitedNodes, currentPath, pathsFound)) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        currentPath.pop_back();
+        visitedNodes[node] = false;
+        return false;
+    }
+
+    // Вывод пути
+    void Game::PrintPath(std::vector<int> &path)
+    {
+        for (size_t i = 0; i < path.size(); ++i) {
+        std::cout << path[i];
+        if (i != path.size() - 1) {
+            std::cout << " -> ";
+        }
+    }
+        std::cout << std::endl;
     }
 
     // Пустые конструкторы и деструкторы для узла

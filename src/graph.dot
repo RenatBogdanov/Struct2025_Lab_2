@@ -1,11 +1,12 @@
 digraph G {
 edge [dir=none];
-1 [xlabel="5"]
+1 [xlabel="8"]
 2 [xlabel="6"]
 3 [xlabel="7"]
 4 [xlabel="8"]
 
 1 -> 2;
+1 -> 4;
 2 -> 3;
 2 -> 4;
 3 -> 4;
